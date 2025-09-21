@@ -30,9 +30,11 @@ A comprehensive Python Jupyter notebook for simulating the environmental impact 
 5. Run the simulation
 6. View visualizations and export results
 
-## CSV File Format
+## CSV File Formats
 
-Your CSV file should include these columns:
+### Input CSV Format (for forest plot data)
+
+Your input CSV file should include these columns:
 
 | Column | Description | Required |
 |--------|-------------|----------|
@@ -45,6 +47,27 @@ Your CSV file should include these columns:
 | longitude | GPS longitude | No |
 | soil_type | Soil classification | No |
 | climate_zone | Climate zone | No |
+
+### Output CSV Format (comprehensive results)
+
+The simulator can export results in a comprehensive single-row CSV format containing:
+
+**Metadata:**
+- timestamp, simulator_version, simulation_years
+- latitude, longitude, region coordinates
+- soil_carbon_g_kg, soil_ph, soil_texture
+- temperature_c, precipitation_mm
+
+**Impact Results:**
+- annual_carbon_sequestration_kg_co2_year, total_carbon_kg_co2
+- biodiversity_impact, forest_resilience
+- water_retention_percent, air_quality_improvement_percent
+- average_biodiversity, average_resilience
+
+**Planting Data:**
+- area_hectares, total_trees, spacing_meters, density_trees_hectare
+- years_to_complete, trees_per_season
+- tree_names, tree_scientific_names, tree_carbon_rates_kg_co2_year, tree_percentages
 
 ## Supported Tree Types
 
@@ -72,7 +95,15 @@ The simulator generates three export files:
 
 ## Sample Data
 
-A sample CSV file (`sample_forest_data.csv`) is included for testing and demonstration purposes.
+A comprehensive sample CSV file (`sample-forest-planting-data.csv`) is included for testing and demonstration purposes. This file contains:
+
+- **Complete simulation results** from a 50-year forest planting simulation
+- **Real-world data** with coordinates in Belarus (52.54°N, 30.86°E)
+- **Comprehensive metrics** including carbon sequestration, biodiversity, resilience, water retention, and air quality
+- **Detailed planting information** for 69,632 Oak trees across 111.41 hectares
+- **Environmental data** including temperature, soil conditions, and regional boundaries
+
+The sample data demonstrates the full output format and can be used as a reference for understanding the simulator's capabilities and expected results.
 
 ## License
 
