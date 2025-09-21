@@ -1,0 +1,39 @@
+METADATA
+Timestamp,2025-09-21T15:30:43.145Z
+Simulator Version,1.0.0
+Simulation Years,50
+Location Type,Point
+Latitude,50.56956736416948
+Longitude,28.159344338632376
+Location Type,Region
+Region North,50.5697121685156
+Region South,50.56942255982336
+Region East,28.159790030130743
+Region West,28.15889864713401
+
+SELECTED TREES
+Name,Scientific Name,Carbon Sequestration (kg CO2/year),Percentage
+"Oak","Quercus robur",22,0%
+
+ENVIRONMENTAL DATA
+Metric,Value
+Soil Carbon (g/kg),
+Soil pH,
+Temperature (°C),22.4
+Precipitation (mm),
+
+IMPACT RESULTS
+Metric,Value
+Annual Carbon Sequestration (kg CO2/year),2772.0
+Total Carbon (50 years) (kg CO2),122938.2
+Biodiversity Impact (avg),4.5/5
+Forest Resilience (avg),4.5/5
+Water Retention (%),94
+Air Quality Improvement (%),95
+
+PLANTING DATA
+Metric,Value
+Area (hectares),0.20
+Total Trees,126
+Spacing (meters),4
+Density (trees/hectare),625
