@@ -1,0 +1,11 @@
+plot_id,area,tree_type,tree_count,tree_density,latitude,longitude,soil_type,climate_zone
+Plot_001,5.2,Oak,1040,200,45.5231,-122.6765,Loamy,Temperate
+Plot_002,3.8,Pine,1140,300,45.5240,-122.6770,Sandy,Temperate
+Plot_003,7.1,Mixed,1775,250,45.5220,-122.6750,Clay,Temperate
+Plot_004,4.5,Maple,1125,250,45.5210,-122.6740,Loamy,Temperate
+Plot_005,6.3,Cedar,1134,180,45.5250,-122.6780,Sandy,Temperate
+Plot_006,2.9,Birch,812,280,45.5200,-122.6730,Clay,Temperate
+Plot_007,8.7,Spruce,3045,350,45.5260,-122.6790,Loamy,Temperate
+Plot_008,3.2,Redwood,480,150,45.5190,-122.6720,Sandy,Temperate
+Plot_009,5.8,Eucalyptus,2320,400,45.5270,-122.6800,Clay,Temperate
+Plot_010,4.1,Other,1025,250,45.5180,-122.6710,Loamy,Temperate
