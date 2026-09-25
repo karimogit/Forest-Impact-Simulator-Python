@@ -41,5 +41,7 @@ Thumbs.db
 
 # Output files (but keep sample data)
 forest_impact_results_*.csv
+forest_impact_results_*.json
+forest_impact_results_*.geojson
 forest_impact_summary_*.csv
 forest_impact_complete_*.json

@@ -1,0 +1,1654 @@
+[
+  {
+    "id": "oak",
+    "name": "Oak",
+    "scientificName": "Quercus robur",
+    "category": "deciduous",
+    "carbonSequestration": 22,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 300,
+    "climateZones": [
+      "temperate",
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Majestic trees known for their strength and longevity. Excellent for wildlife habitat and carbon sequestration.",
+    "carbonCreditValue": 12,
+    "maintenanceCost": 8,
+    "plantingCost": 25,
+    "timberValue": 800,
+    "jobCreationFactor": 0.8,
+    "recreationValue": 5,
+    "healthBenefit": 4,
+    "communityEngagement": 5,
+    "erosionPrevention": 4,
+    "floodManagement": 3,
+    "fireResistance": 3
+  },
+  {
+    "id": "pine",
+    "name": "Pine",
+    "scientificName": "Pinus sylvestris",
+    "category": "coniferous",
+    "carbonSequestration": 18,
+    "growthRate": "medium",
+    "maxHeight": 25,
+    "lifespan": 150,
+    "climateZones": [
+      "boreal",
+      "temperate",
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 3,
+    "resilienceScore": 5,
+    "description": "Evergreen conifers that thrive in various climates. Great for erosion control and timber production.",
+    "carbonCreditValue": 10,
+    "maintenanceCost": 5,
+    "plantingCost": 15,
+    "timberValue": 350,
+    "jobCreationFactor": 0.6,
+    "recreationValue": 4,
+    "healthBenefit": 4,
+    "communityEngagement": 3,
+    "erosionPrevention": 5,
+    "floodManagement": 2,
+    "fireResistance": 2
+  },
+  {
+    "id": "eucalyptus",
+    "name": "Eucalyptus",
+    "scientificName": "Eucalyptus globulus",
+    "category": "tropical",
+    "carbonSequestration": 35,
+    "growthRate": "fast",
+    "maxHeight": 40,
+    "lifespan": 100,
+    "climateZones": [
+      "tropical",
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 2,
+    "resilienceScore": 4,
+    "description": "Fast-growing trees native to Australia. Excellent carbon sequestration but high water requirements."
+  },
+  {
+    "id": "spruce",
+    "name": "Spruce",
+    "scientificName": "Picea abies",
+    "category": "coniferous",
+    "carbonSequestration": 16,
+    "growthRate": "slow",
+    "maxHeight": 35,
+    "lifespan": 200,
+    "climateZones": [
+      "boreal",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "acidic"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Cold-hardy conifers perfect for northern climates. Excellent for wildlife and timber."
+  },
+  {
+    "id": "birch",
+    "name": "Birch",
+    "scientificName": "Betula pendula",
+    "category": "deciduous",
+    "carbonSequestration": 15,
+    "growthRate": "fast",
+    "maxHeight": 18,
+    "lifespan": 100,
+    "climateZones": [
+      "boreal",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 3,
+    "description": "Fast-growing pioneer species. Great for reforestation and early ecosystem development."
+  },
+  {
+    "id": "mangrove",
+    "name": "Mangrove",
+    "scientificName": "Rhizophora mangle",
+    "category": "tropical",
+    "carbonSequestration": 25,
+    "growthRate": "medium",
+    "maxHeight": 15,
+    "lifespan": 80,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "saline",
+      "waterlogged"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Coastal trees that protect shorelines and provide critical marine habitat. Excellent for coastal restoration."
+  },
+  {
+    "id": "cedar",
+    "name": "Cedar",
+    "scientificName": "Cedrus libani",
+    "category": "coniferous",
+    "carbonSequestration": 19,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 250,
+    "climateZones": [
+      "mediterranean",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "rocky"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 3,
+    "resilienceScore": 5,
+    "description": "Aromatic conifers with excellent durability. Great for timber and ornamental use."
+  },
+  {
+    "id": "willow",
+    "name": "Willow",
+    "scientificName": "Salix alba",
+    "category": "deciduous",
+    "carbonSequestration": 17,
+    "growthRate": "fast",
+    "maxHeight": 12,
+    "lifespan": 80,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "wet"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Fast-growing trees that thrive in wet conditions. Excellent for erosion control and riparian restoration."
+  },
+  {
+    "id": "sequoia",
+    "name": "Giant Sequoia",
+    "scientificName": "Sequoiadendron giganteum",
+    "category": "coniferous",
+    "carbonSequestration": 40,
+    "growthRate": "slow",
+    "maxHeight": 80,
+    "lifespan": 3000,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "The largest trees on Earth. Exceptional carbon sequestration and longevity. Perfect for long-term climate impact."
+  },
+  {
+    "id": "beech",
+    "name": "Beech",
+    "scientificName": "Fagus sylvatica",
+    "category": "deciduous",
+    "carbonSequestration": 24,
+    "growthRate": "slow",
+    "maxHeight": 35,
+    "lifespan": 250,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Majestic European forest trees. Excellent for wildlife and traditional forestry. Dominant in Central European forests."
+  },
+  {
+    "id": "ash",
+    "name": "Ash",
+    "scientificName": "Fraxinus excelsior",
+    "category": "deciduous",
+    "carbonSequestration": 21,
+    "growthRate": "medium",
+    "maxHeight": 25,
+    "lifespan": 200,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Valuable European hardwood. Excellent for furniture and tool handles. Important for biodiversity."
+  },
+  {
+    "id": "rowan",
+    "name": "Rowan",
+    "scientificName": "Sorbus aucuparia",
+    "category": "deciduous",
+    "carbonSequestration": 12,
+    "growthRate": "medium",
+    "maxHeight": 15,
+    "lifespan": 120,
+    "climateZones": [
+      "boreal",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "acidic"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Hardy Nordic tree with beautiful berries. Excellent for wildlife and cold climates. Important in Scandinavian folklore."
+  },
+  {
+    "id": "juniper",
+    "name": "Juniper",
+    "scientificName": "Juniperus communis",
+    "category": "coniferous",
+    "carbonSequestration": 14,
+    "growthRate": "slow",
+    "maxHeight": 8,
+    "lifespan": 150,
+    "climateZones": [
+      "boreal",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "rocky"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Hardy evergreen shrub/tree. Excellent for harsh northern climates. Berries used for gin production."
+  },
+  {
+    "id": "redwood",
+    "name": "Coast Redwood",
+    "scientificName": "Sequoia sempervirens",
+    "category": "coniferous",
+    "carbonSequestration": 45,
+    "growthRate": "slow",
+    "maxHeight": 100,
+    "lifespan": 2000,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 5,
+    "resilienceScore": 5,
+    "description": "Tallest trees on Earth. Exceptional carbon sequestration. Native to California coast. Critical for fog capture."
+  },
+  {
+    "id": "tulip_poplar",
+    "name": "Tulip Poplar",
+    "scientificName": "Liriodendron tulipifera",
+    "category": "deciduous",
+    "carbonSequestration": 28,
+    "growthRate": "fast",
+    "maxHeight": 35,
+    "lifespan": 300,
+    "climateZones": [
+      "temperate",
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "deep",
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Fast-growing eastern US native (Liriodendron tulipifera). Distinctive flowers, high carbon storage, and excellent timber."
+  },
+  {
+    "id": "sugar_maple",
+    "name": "Sugar Maple",
+    "scientificName": "Acer saccharum",
+    "category": "deciduous",
+    "carbonSequestration": 22,
+    "growthRate": "slow",
+    "maxHeight": 25,
+    "lifespan": 300,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Iconic North American tree. Source of maple syrup. Excellent fall colors and wildlife value."
+  },
+  {
+    "id": "baobab",
+    "name": "Baobab",
+    "scientificName": "Adansonia digitata",
+    "category": "tropical",
+    "carbonSequestration": 30,
+    "growthRate": "slow",
+    "maxHeight": 25,
+    "lifespan": 1000,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 5,
+    "resilienceScore": 5,
+    "description": "Iconic African tree. Excellent drought resistance. Important for local communities and wildlife."
+  },
+  {
+    "id": "acacia",
+    "name": "Acacia",
+    "scientificName": "Acacia senegal",
+    "category": "tropical",
+    "carbonSequestration": 18,
+    "growthRate": "medium",
+    "maxHeight": 12,
+    "lifespan": 100,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Drought-resistant African tree. Important for gum arabic production. Excellent for arid regions."
+  },
+  {
+    "id": "bamboo",
+    "name": "Bamboo",
+    "scientificName": "Bambusa vulgaris",
+    "category": "tropical",
+    "carbonSequestration": 20,
+    "growthRate": "fast",
+    "maxHeight": 20,
+    "lifespan": 50,
+    "climateZones": [
+      "tropical",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Fast-growing grass family. Excellent for construction and carbon sequestration. Important in Asian cultures."
+  },
+  {
+    "id": "ginkgo",
+    "name": "Ginkgo",
+    "scientificName": "Ginkgo biloba",
+    "category": "deciduous",
+    "carbonSequestration": 16,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 1000,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 5,
+    "description": "Ancient Chinese tree species. Excellent urban tree. Medicinal properties. Very pollution resistant."
+  },
+  {
+    "id": "cherry",
+    "name": "Cherry",
+    "scientificName": "Prunus avium",
+    "category": "deciduous",
+    "carbonSequestration": 14,
+    "growthRate": "medium",
+    "maxHeight": 20,
+    "lifespan": 150,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Beautiful flowering tree. Important for pollinators and wildlife. Cultural significance in Japan and Europe."
+  },
+  {
+    "id": "olive",
+    "name": "Olive",
+    "scientificName": "Olea europaea",
+    "category": "mediterranean",
+    "carbonSequestration": 15,
+    "growthRate": "slow",
+    "maxHeight": 12,
+    "lifespan": 500,
+    "climateZones": [
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "rocky"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Iconic Mediterranean tree. Drought-resistant and long-lived. Important for olive oil production and cultural heritage."
+  },
+  {
+    "id": "cypress",
+    "name": "Mediterranean Cypress",
+    "scientificName": "Cupressus sempervirens",
+    "category": "mediterranean",
+    "carbonSequestration": 18,
+    "growthRate": "medium",
+    "maxHeight": 25,
+    "lifespan": 300,
+    "climateZones": [
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "rocky"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 3,
+    "resilienceScore": 5,
+    "description": "Classic Mediterranean landscape tree. Excellent for windbreaks and erosion control. Very drought-tolerant."
+  },
+  {
+    "id": "carob",
+    "name": "Carob",
+    "scientificName": "Ceratonia siliqua",
+    "category": "mediterranean",
+    "carbonSequestration": 16,
+    "growthRate": "slow",
+    "maxHeight": 15,
+    "lifespan": 200,
+    "climateZones": [
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "rocky"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Drought-resistant Mediterranean tree. Edible pods used as chocolate substitute. Excellent for arid regions."
+  },
+  {
+    "id": "fig",
+    "name": "Fig",
+    "scientificName": "Ficus carica",
+    "category": "mediterranean",
+    "carbonSequestration": 14,
+    "growthRate": "medium",
+    "maxHeight": 10,
+    "lifespan": 100,
+    "climateZones": [
+      "mediterranean",
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Ancient Mediterranean fruit tree. Important for wildlife and human consumption. Drought-tolerant once established."
+  },
+  {
+    "id": "pomegranate",
+    "name": "Pomegranate",
+    "scientificName": "Punica granatum",
+    "category": "mediterranean",
+    "carbonSequestration": 12,
+    "growthRate": "medium",
+    "maxHeight": 8,
+    "lifespan": 100,
+    "climateZones": [
+      "mediterranean",
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Beautiful flowering and fruiting tree. Drought-resistant and culturally significant. Excellent for urban gardens."
+  },
+  {
+    "id": "almond",
+    "name": "Almond",
+    "scientificName": "Prunus dulcis",
+    "category": "mediterranean",
+    "carbonSequestration": 13,
+    "growthRate": "medium",
+    "maxHeight": 12,
+    "lifespan": 80,
+    "climateZones": [
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Important Mediterranean nut tree. Early spring blossoms. Drought-tolerant and valuable for pollinators."
+  },
+  {
+    "id": "juniper_mediterranean",
+    "name": "Mediterranean Juniper",
+    "scientificName": "Juniperus phoenicea",
+    "category": "mediterranean",
+    "carbonSequestration": 15,
+    "growthRate": "slow",
+    "maxHeight": 10,
+    "lifespan": 200,
+    "climateZones": [
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "rocky"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Coastal Mediterranean juniper. Excellent for coastal restoration and wind protection. Very drought-resistant."
+  },
+  {
+    "id": "mahogany",
+    "name": "Mahogany",
+    "scientificName": "Swietenia mahagoni",
+    "category": "tropical",
+    "carbonSequestration": 32,
+    "growthRate": "slow",
+    "maxHeight": 35,
+    "lifespan": 200,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Valuable tropical hardwood. Excellent timber quality. Important for rainforest biodiversity and carbon storage."
+  },
+  {
+    "id": "teak",
+    "name": "Teak",
+    "scientificName": "Tectona grandis",
+    "category": "tropical",
+    "carbonSequestration": 28,
+    "growthRate": "medium",
+    "maxHeight": 40,
+    "lifespan": 150,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Premium tropical timber tree. Highly valued for furniture and construction. Excellent for sustainable forestry."
+  },
+  {
+    "id": "rubber",
+    "name": "Rubber Tree",
+    "scientificName": "Hevea brasiliensis",
+    "category": "tropical",
+    "carbonSequestration": 25,
+    "growthRate": "medium",
+    "maxHeight": 30,
+    "lifespan": 100,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 3,
+    "resilienceScore": 3,
+    "description": "Important tropical tree for natural rubber production. Excellent carbon sequestration. Important for local economies."
+  },
+  {
+    "id": "coconut",
+    "name": "Coconut Palm",
+    "scientificName": "Cocos nucifera",
+    "category": "tropical",
+    "carbonSequestration": 20,
+    "growthRate": "medium",
+    "maxHeight": 25,
+    "lifespan": 80,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Iconic tropical palm. Multiple uses from food to construction. Excellent for coastal areas and island ecosystems."
+  },
+  {
+    "id": "papaya",
+    "name": "Papaya",
+    "scientificName": "Carica papaya",
+    "category": "tropical",
+    "carbonSequestration": 12,
+    "growthRate": "fast",
+    "maxHeight": 8,
+    "lifespan": 20,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 3,
+    "description": "Fast-growing tropical fruit tree. Important for food security and local economies. Excellent for agroforestry."
+  },
+  {
+    "id": "mango",
+    "name": "Mango",
+    "scientificName": "Mangifera indica",
+    "category": "tropical",
+    "carbonSequestration": 18,
+    "growthRate": "medium",
+    "maxHeight": 20,
+    "lifespan": 100,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Beloved tropical fruit tree. Important for food security and wildlife. Excellent shade tree and carbon sequester."
+  },
+  {
+    "id": "avocado",
+    "name": "Avocado",
+    "scientificName": "Persea americana",
+    "category": "tropical",
+    "carbonSequestration": 16,
+    "growthRate": "medium",
+    "maxHeight": 15,
+    "lifespan": 80,
+    "climateZones": [
+      "tropical",
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Valuable tropical fruit tree. High nutritional value. Important for food security and local economies."
+  },
+  {
+    "id": "banana",
+    "name": "Banana",
+    "scientificName": "Musa acuminata",
+    "category": "tropical",
+    "carbonSequestration": 14,
+    "growthRate": "fast",
+    "maxHeight": 6,
+    "lifespan": 25,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 3,
+    "resilienceScore": 3,
+    "description": "Fast-growing tropical herbaceous plant. Critical for food security. Excellent for agroforestry systems."
+  },
+  {
+    "id": "cashew",
+    "name": "Cashew",
+    "scientificName": "Anacardium occidentale",
+    "category": "tropical",
+    "carbonSequestration": 17,
+    "growthRate": "medium",
+    "maxHeight": 12,
+    "lifespan": 60,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Important tropical nut tree. Drought-resistant once established. Valuable for local economies and food security."
+  },
+  {
+    "id": "palm_oil",
+    "name": "Oil Palm",
+    "scientificName": "Elaeis guineensis",
+    "category": "tropical",
+    "carbonSequestration": 22,
+    "growthRate": "medium",
+    "maxHeight": 20,
+    "lifespan": 25,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 2,
+    "resilienceScore": 3,
+    "description": "Important tropical oil crop. High yield but controversial due to deforestation. Better in agroforestry systems."
+  },
+  {
+    "id": "linden",
+    "name": "Linden",
+    "scientificName": "Tilia cordata",
+    "category": "deciduous",
+    "carbonSequestration": 20,
+    "growthRate": "medium",
+    "maxHeight": 25,
+    "lifespan": 200,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Beautiful European tree with fragrant flowers. Excellent for pollinators and urban environments. Important in European culture."
+  },
+  {
+    "id": "hornbeam",
+    "name": "Hornbeam",
+    "scientificName": "Carpinus betulus",
+    "category": "deciduous",
+    "carbonSequestration": 18,
+    "growthRate": "slow",
+    "maxHeight": 20,
+    "lifespan": 150,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Hardy European tree. Excellent for hedges and windbreaks. Important for wildlife and traditional forestry."
+  },
+  {
+    "id": "sycamore",
+    "name": "Sycamore",
+    "scientificName": "Acer pseudoplatanus",
+    "category": "deciduous",
+    "carbonSequestration": 19,
+    "growthRate": "fast",
+    "maxHeight": 30,
+    "lifespan": 200,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Fast-growing European maple. Excellent for urban environments and wildlife. Important for traditional forestry."
+  },
+  {
+    "id": "hickory",
+    "name": "Hickory",
+    "scientificName": "Carya ovata",
+    "category": "deciduous",
+    "carbonSequestration": 24,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 300,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Valuable North American hardwood. Excellent for wildlife and traditional uses. Important for biodiversity."
+  },
+  {
+    "id": "black_walnut",
+    "name": "Black Walnut",
+    "scientificName": "Juglans nigra",
+    "category": "deciduous",
+    "carbonSequestration": 26,
+    "growthRate": "slow",
+    "maxHeight": 35,
+    "lifespan": 250,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Valuable North American nut tree. Excellent timber and wildlife value. Important for agroforestry."
+  },
+  {
+    "id": "white_oak",
+    "name": "White Oak",
+    "scientificName": "Quercus alba",
+    "category": "deciduous",
+    "carbonSequestration": 25,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 400,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 5,
+    "description": "Majestic North American oak. Excellent for wildlife and traditional uses. Very long-lived and valuable."
+  },
+  {
+    "id": "camphor",
+    "name": "Camphor",
+    "scientificName": "Cinnamomum camphora",
+    "category": "tropical",
+    "carbonSequestration": 20,
+    "growthRate": "medium",
+    "maxHeight": 25,
+    "lifespan": 150,
+    "climateZones": [
+      "tropical",
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Important Asian tree. Aromatic wood and leaves. Used in traditional medicine and cultural practices."
+  },
+  {
+    "id": "sandalwood",
+    "name": "Sandalwood",
+    "scientificName": "Santalum album",
+    "category": "tropical",
+    "carbonSequestration": 16,
+    "growthRate": "slow",
+    "maxHeight": 15,
+    "lifespan": 100,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Valuable Asian tree. Aromatic heartwood. Important for traditional medicine and cultural practices."
+  },
+  {
+    "id": "neem",
+    "name": "Neem",
+    "scientificName": "Azadirachta indica",
+    "category": "tropical",
+    "carbonSequestration": 18,
+    "growthRate": "medium",
+    "maxHeight": 20,
+    "lifespan": 150,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Important Indian tree. Medicinal properties and pest resistance. Excellent for agroforestry and urban planting."
+  },
+  {
+    "id": "marula",
+    "name": "Marula",
+    "scientificName": "Sclerocarya birrea",
+    "category": "tropical",
+    "carbonSequestration": 16,
+    "growthRate": "slow",
+    "maxHeight": 18,
+    "lifespan": 150,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 5,
+    "resilienceScore": 5,
+    "description": "Important African tree. Edible fruits and nuts. Excellent for wildlife and local communities. Drought-resistant."
+  },
+  {
+    "id": "shea",
+    "name": "Shea",
+    "scientificName": "Vitellaria paradoxa",
+    "category": "tropical",
+    "carbonSequestration": 14,
+    "growthRate": "slow",
+    "maxHeight": 15,
+    "lifespan": 200,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Important African tree. Shea butter production. Critical for local economies and women empowerment."
+  },
+  {
+    "id": "fir",
+    "name": "Douglas Fir",
+    "scientificName": "Pseudotsuga menziesii",
+    "category": "coniferous",
+    "carbonSequestration": 22,
+    "growthRate": "medium",
+    "maxHeight": 60,
+    "lifespan": 500,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Important North American conifer. Excellent timber quality. Important for wildlife and carbon sequestration."
+  },
+  {
+    "id": "hemlock",
+    "name": "Eastern Hemlock",
+    "scientificName": "Tsuga canadensis",
+    "category": "coniferous",
+    "carbonSequestration": 19,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 300,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "acidic"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 5,
+    "resilienceScore": 3,
+    "description": "Important eastern North American conifer. Excellent for wildlife and shade. Threatened by invasive species."
+  },
+  {
+    "id": "larch",
+    "name": "European Larch",
+    "scientificName": "Larix decidua",
+    "category": "coniferous",
+    "carbonSequestration": 17,
+    "growthRate": "medium",
+    "maxHeight": 35,
+    "lifespan": 200,
+    "climateZones": [
+      "temperate",
+      "boreal"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Deciduous conifer. Unique among conifers for losing needles. Excellent for timber and wildlife."
+  },
+  {
+    "id": "black-spruce",
+    "name": "Black Spruce",
+    "scientificName": "Picea mariana",
+    "category": "boreal",
+    "carbonSequestration": 15,
+    "growthRate": "slow",
+    "maxHeight": 25,
+    "lifespan": 200,
+    "climateZones": [
+      "boreal"
+    ],
+    "soilPreferences": [
+      "moist",
+      "acidic",
+      "peat"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Iconic boreal forest tree. Thrives in cold, wet conditions. Essential for northern ecosystems and wildlife."
+  },
+  {
+    "id": "white-spruce",
+    "name": "White Spruce",
+    "scientificName": "Picea glauca",
+    "category": "boreal",
+    "carbonSequestration": 16,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 250,
+    "climateZones": [
+      "boreal",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Hardy boreal conifer. Excellent cold tolerance. Important for northern forests and carbon sequestration."
+  },
+  {
+    "id": "balsam-fir",
+    "name": "Balsam Fir",
+    "scientificName": "Abies balsamea",
+    "category": "boreal",
+    "carbonSequestration": 14,
+    "growthRate": "slow",
+    "maxHeight": 20,
+    "lifespan": 150,
+    "climateZones": [
+      "boreal"
+    ],
+    "soilPreferences": [
+      "moist",
+      "acidic"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Classic boreal tree. Aromatic needles and excellent wildlife habitat. Popular Christmas tree species."
+  },
+  {
+    "id": "tamarack",
+    "name": "Tamarack",
+    "scientificName": "Larix laricina",
+    "category": "boreal",
+    "carbonSequestration": 13,
+    "growthRate": "slow",
+    "maxHeight": 20,
+    "lifespan": 180,
+    "climateZones": [
+      "boreal"
+    ],
+    "soilPreferences": [
+      "moist",
+      "acidic",
+      "peat"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Deciduous conifer of the boreal forest. Unique needle-dropping habit. Excellent for wetland restoration."
+  },
+  {
+    "id": "jack-pine",
+    "name": "Jack Pine",
+    "scientificName": "Pinus banksiana",
+    "category": "boreal",
+    "carbonSequestration": 12,
+    "growthRate": "slow",
+    "maxHeight": 15,
+    "lifespan": 150,
+    "climateZones": [
+      "boreal"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 3,
+    "resilienceScore": 5,
+    "description": "Hardy boreal pine. Fire-adapted species. Important for northern forest regeneration and wildlife."
+  },
+  {
+    "id": "monkey-puzzle",
+    "name": "Monkey Puzzle",
+    "scientificName": "Araucaria araucana",
+    "category": "coniferous",
+    "carbonSequestration": 18,
+    "growthRate": "slow",
+    "maxHeight": 30,
+    "lifespan": 1000,
+    "climateZones": [
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "acidic"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Ancient conifer from South America. Unique spiky appearance. Long-lived and drought-resistant. Important for biodiversity."
+  },
+  {
+    "id": "dragon-blood-tree",
+    "name": "Dragon Blood Tree",
+    "scientificName": "Dracaena cinnabari",
+    "category": "tropical",
+    "carbonSequestration": 14,
+    "growthRate": "slow",
+    "maxHeight": 12,
+    "lifespan": 600,
+    "climateZones": [
+      "tropical"
+    ],
+    "soilPreferences": [
+      "rocky",
+      "well-drained"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 5,
+    "resilienceScore": 5,
+    "description": "Iconic tree from Socotra Island. Unique umbrella shape. Produces red resin. Extremely drought-resistant and important for local ecosystems."
+  },
+  {
+    "id": "mesquite",
+    "name": "Mesquite",
+    "scientificName": "Prosopis glandulosa",
+    "category": "arid",
+    "carbonSequestration": 16,
+    "growthRate": "medium",
+    "maxHeight": 8,
+    "lifespan": 100,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained",
+      "poor"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Hardy desert tree. Nitrogen-fixing legume. Important for wildlife and erosion control in arid regions."
+  },
+  {
+    "id": "palo-verde",
+    "name": "Palo Verde",
+    "scientificName": "Parkinsonia florida",
+    "category": "arid",
+    "carbonSequestration": 14,
+    "growthRate": "fast",
+    "maxHeight": 10,
+    "lifespan": 120,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained",
+      "rocky"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Arizona state tree. Photosynthetic bark. Excellent drought tolerance and desert adaptation."
+  },
+  {
+    "id": "desert-ironwood",
+    "name": "Desert Ironwood",
+    "scientificName": "Olneya tesota",
+    "category": "arid",
+    "carbonSequestration": 18,
+    "growthRate": "slow",
+    "maxHeight": 15,
+    "lifespan": 800,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "rocky",
+      "well-drained"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 5,
+    "resilienceScore": 5,
+    "description": "Long-lived desert tree. Nurse plant for many desert species. Extremely hard wood and high carbon storage."
+  },
+  {
+    "id": "joshua-tree",
+    "name": "Joshua Tree",
+    "scientificName": "Yucca brevifolia",
+    "category": "arid",
+    "carbonSequestration": 12,
+    "growthRate": "slow",
+    "maxHeight": 12,
+    "lifespan": 150,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 4,
+    "description": "Iconic Mojave Desert tree. Unique ecosystem keystone. Important for desert wildlife and pollinators."
+  },
+  {
+    "id": "desert-willow",
+    "name": "Desert Willow",
+    "scientificName": "Chilopsis linearis",
+    "category": "arid",
+    "carbonSequestration": 10,
+    "growthRate": "fast",
+    "maxHeight": 8,
+    "lifespan": 40,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Fast-growing desert tree with beautiful flowers. Attracts hummingbirds and butterflies in arid landscapes."
+  },
+  {
+    "id": "ghost-gum",
+    "name": "Ghost Gum",
+    "scientificName": "Corymbia aparrerinja",
+    "category": "arid",
+    "carbonSequestration": 22,
+    "growthRate": "medium",
+    "maxHeight": 20,
+    "lifespan": 200,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "rocky",
+      "well-drained"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Australian outback tree with distinctive white bark. Drought-resistant and important for arid ecosystem restoration."
+  },
+  {
+    "id": "tamarisk",
+    "name": "Tamarisk",
+    "scientificName": "Tamarix gallica",
+    "category": "arid",
+    "carbonSequestration": 15,
+    "growthRate": "fast",
+    "maxHeight": 6,
+    "lifespan": 50,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "saline",
+      "poor"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 2,
+    "resilienceScore": 5,
+    "description": "Salt-tolerant desert tree. Good for degraded soils and erosion control in harsh arid conditions."
+  },
+  {
+    "id": "desert-broom",
+    "name": "Desert Broom",
+    "scientificName": "Baccharis sarothroides",
+    "category": "arid",
+    "carbonSequestration": 8,
+    "growthRate": "fast",
+    "maxHeight": 4,
+    "lifespan": 30,
+    "climateZones": [
+      "arid"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "rocky",
+      "poor"
+    ],
+    "waterNeeds": "low",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Hardy desert shrub. Pioneer species for disturbed arid lands. Important for erosion control."
+  },
+  {
+    "id": "live-oak",
+    "name": "Live Oak",
+    "scientificName": "Quercus virginiana",
+    "category": "subtropical",
+    "carbonSequestration": 28,
+    "growthRate": "slow",
+    "maxHeight": 25,
+    "lifespan": 300,
+    "climateZones": [
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy",
+      "loamy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 5,
+    "resilienceScore": 4,
+    "description": "Iconic southeastern US oak. Massive canopy spread. Supports extensive wildlife and has high carbon storage."
+  },
+  {
+    "id": "bald-cypress",
+    "name": "Bald Cypress",
+    "scientificName": "Taxodium distichum",
+    "category": "subtropical",
+    "carbonSequestration": 30,
+    "growthRate": "medium",
+    "maxHeight": 35,
+    "lifespan": 600,
+    "climateZones": [
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "wet",
+      "swampy",
+      "acidic"
+    ],
+    "waterNeeds": "high",
+    "biodiversityValue": 4,
+    "resilienceScore": 5,
+    "description": "Wetland conifer. Flood-tolerant with distinctive \"knees\". Excellent for wetland restoration and carbon storage."
+  },
+  {
+    "id": "southern-magnolia",
+    "name": "Southern Magnolia",
+    "scientificName": "Magnolia grandiflora",
+    "category": "subtropical",
+    "carbonSequestration": 24,
+    "growthRate": "medium",
+    "maxHeight": 25,
+    "lifespan": 200,
+    "climateZones": [
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained",
+      "acidic"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Evergreen tree with large fragrant flowers. Important pollinator tree and ornamental value in subtropical regions."
+  },
+  {
+    "id": "pecan",
+    "name": "Pecan",
+    "scientificName": "Carya illinoinensis",
+    "category": "subtropical",
+    "carbonSequestration": 26,
+    "growthRate": "medium",
+    "maxHeight": 30,
+    "lifespan": 300,
+    "climateZones": [
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "deep",
+      "well-drained",
+      "fertile"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Native nut tree. Important wildlife food source. High carbon storage and economic value in subtropical climates."
+  },
+  {
+    "id": "slash-pine",
+    "name": "Slash Pine",
+    "scientificName": "Pinus elliottii",
+    "category": "subtropical",
+    "carbonSequestration": 20,
+    "growthRate": "fast",
+    "maxHeight": 30,
+    "lifespan": 200,
+    "climateZones": [
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "sandy",
+      "well-drained",
+      "acidic"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Fast-growing southern pine. Fire-resistant. Important for timber and reforestation in subtropical regions."
+  },
+  {
+    "id": "sweetgum",
+    "name": "Sweetgum",
+    "scientificName": "Liquidambar styraciflua",
+    "category": "subtropical",
+    "carbonSequestration": 22,
+    "growthRate": "fast",
+    "maxHeight": 25,
+    "lifespan": 150,
+    "climateZones": [
+      "subtropical",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 3,
+    "description": "Deciduous tree with star-shaped leaves. Good for wildlife habitat and urban forestry in subtropical areas."
+  },
+  {
+    "id": "loblolly-pine",
+    "name": "Loblolly Pine",
+    "scientificName": "Pinus taeda",
+    "category": "subtropical",
+    "carbonSequestration": 25,
+    "growthRate": "fast",
+    "maxHeight": 35,
+    "lifespan": 200,
+    "climateZones": [
+      "subtropical"
+    ],
+    "soilPreferences": [
+      "moist",
+      "well-drained",
+      "acidic"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Major timber species in southeastern US. Fast carbon sequestration and important for commercial forestry."
+  },
+  {
+    "id": "chinese-elm",
+    "name": "Chinese Elm",
+    "scientificName": "Ulmus parvifolia",
+    "category": "subtropical",
+    "carbonSequestration": 18,
+    "growthRate": "fast",
+    "maxHeight": 18,
+    "lifespan": 100,
+    "climateZones": [
+      "subtropical",
+      "temperate"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "adaptable"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 3,
+    "resilienceScore": 4,
+    "description": "Adaptable urban tree. Disease-resistant elm. Good for urban forestry and climate adaptation projects."
+  },
+  {
+    "id": "jacaranda",
+    "name": "Jacaranda",
+    "scientificName": "Jacaranda mimosifolia",
+    "category": "subtropical",
+    "carbonSequestration": 20,
+    "growthRate": "medium",
+    "maxHeight": 20,
+    "lifespan": 150,
+    "climateZones": [
+      "subtropical",
+      "mediterranean"
+    ],
+    "soilPreferences": [
+      "well-drained",
+      "sandy"
+    ],
+    "waterNeeds": "medium",
+    "biodiversityValue": 4,
+    "resilienceScore": 3,
+    "description": "Beautiful flowering tree with purple blooms. Popular ornamental species. Good for urban forestry and biodiversity in warm climates."
+  }
+]
