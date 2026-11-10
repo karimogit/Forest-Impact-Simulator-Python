@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict
 
-from .constants import TREE_AGE_GROWTH_FACTORS, TREE_GROWTH_FACTORS
+from .constants import BIODIVERSITY_GROWTH_FACTORS, TREE_AGE_GROWTH_FACTORS, TREE_GROWTH_FACTORS
 
 
 def get_planting_growth_factor(year: int) -> float:
@@ -45,6 +45,26 @@ def get_age_growth_factor(age: int) -> float:
     if age <= 50:
         return TREE_AGE_GROWTH_FACTORS["AGE_21_TO_50"]
     return TREE_AGE_GROWTH_FACTORS["AGE_50_PLUS"]
+
+
+def get_biodiversity_growth_factor(year: int) -> float:
+    """Growth factor used to turn an endpoint score into a period average.
+
+    The original web app applies this curve to both biodiversity and resilience.
+    """
+    if year == 1:
+        return BIODIVERSITY_GROWTH_FACTORS["YEAR_1"]
+    if year == 2:
+        return BIODIVERSITY_GROWTH_FACTORS["YEAR_2"]
+    if year == 3:
+        return BIODIVERSITY_GROWTH_FACTORS["YEAR_3"]
+    if year == 4:
+        return BIODIVERSITY_GROWTH_FACTORS["YEAR_4"]
+    if year == 5:
+        return BIODIVERSITY_GROWTH_FACTORS["YEAR_5"]
+    if year == 6:
+        return BIODIVERSITY_GROWTH_FACTORS["YEAR_6"]
+    return BIODIVERSITY_GROWTH_FACTORS["YEAR_7_PLUS"]
 
 
 def calculate_annual_carbon_with_growth(mature_rate: float, year: int) -> float:
@@ -88,3 +108,13 @@ def average_annual_from_cumulative(total_carbon: float, years: int) -> float:
     if years <= 0:
         return 0.0
     return total_carbon / years
+
+
+def calculate_period_average_impact(score: float, years: int) -> float:
+    """Average an endpoint biodiversity or resilience score over the growth curve."""
+    if years <= 0:
+        return 0.0
+    total = 0.0
+    for year in range(1, years + 1):
+        total += score * get_biodiversity_growth_factor(year)
+    return total / years

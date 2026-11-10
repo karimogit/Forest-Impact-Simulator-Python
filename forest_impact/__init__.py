@@ -7,7 +7,7 @@ from .calculator import ForestImpactSimulator
 from .planting import calculate_region_area, calculate_planting_timeline, format_area
 from .tree_types import TREE_TYPES, get_tree_by_id, get_tree_by_name
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 __all__ = [
     "ForestImpactSimulator",

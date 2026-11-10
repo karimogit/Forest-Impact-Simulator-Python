@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import re
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Sequence, Union
 
@@ -11,12 +12,89 @@ from .growth import (
     average_annual_from_cumulative,
     calculate_clear_cutting_carbon,
     calculate_cumulative_planting_carbon,
+    calculate_period_average_impact,
 )
-from .planting import calculate_planting_timeline, format_area
-from .tree_types import get_tree_by_name
+from .planting import TREE_SPACING_CONFIGS, calculate_planting_timeline, format_area, get_recommended_spacing
+from .tree_types import get_tree_by_id, get_tree_by_name
 
 
 TreeSpec = Union[str, Dict[str, Any]]
+
+
+def _require_number(name: str, value: Any, *, minimum: Optional[float] = None) -> Union[int, float]:
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{name} must be a finite number") from exc
+    if not math.isfinite(number):
+        raise ValueError(f"{name} must be a finite number")
+    if minimum is not None and number < minimum:
+        raise ValueError(f"{name} must be >= {minimum}")
+    rounded = round(number)
+    if abs(number - rounded) <= 1e-9:
+        return int(rounded)
+    return number
+
+
+def _require_whole_number(name: str, value: Any, *, minimum: int) -> int:
+    number = _require_number(name, value, minimum=minimum)
+    if abs(number - round(number)) > 1e-9:
+        raise ValueError(f"{name} must be a whole number")
+    return int(round(number))
+
+
+def _normalize_mode(mode: str) -> str:
+    key = str(mode or "").strip().lower().replace("_", "-").replace(" ", "-")
+    aliases = {
+        "planting": "planting",
+        "plant": "planting",
+        "clear-cutting": "clear-cutting",
+        "clearcutting": "clear-cutting",
+        "clear-cut": "clear-cutting",
+        "clearcut": "clear-cutting",
+    }
+    try:
+        return aliases[key]
+    except KeyError as exc:
+        raise ValueError("mode must be 'planting' or 'clear-cutting'") from exc
+
+
+def _normalize_calculation_mode(mode: str) -> str:
+    key = str(mode or "").strip().lower().replace("_", "").replace("-", "")
+    if key == "perarea":
+        return "perArea"
+    if key == "pertree":
+        return "perTree"
+    raise ValueError("calculation_mode must be 'perArea' or 'perTree'")
+
+
+def _parse_optional_number(value: Any) -> Optional[float]:
+    """Parse a plot field. Missing values are None; present non-numbers raise."""
+    if value is None or value == "":
+        return None
+    if isinstance(value, str) and value.strip().lower() in {"nan", "none", "null"}:
+        return None
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"Expected a number, got {value!r}") from exc
+    if not math.isfinite(number):
+        return None
+    return number
+
+
+def _unknown_tree(name: str) -> Dict[str, Any]:
+    label = name.strip() or "Other"
+    slug = re.sub(r"[^a-z0-9]+", "-", label.lower()).strip("-") or "other"
+    tree_id = slug if get_tree_by_id(slug) is None else f"other-{slug}"
+    return {
+        "id": tree_id,
+        "name": label,
+        "scientificName": "Unknown species",
+        "carbonSequestration": 18.0,
+        "biodiversityValue": 3.0,
+        "resilienceScore": 3.0,
+    }
 
 
 def _resolve_tree(spec: TreeSpec) -> Dict[str, Any]:
@@ -26,15 +104,23 @@ def _resolve_tree(spec: TreeSpec) -> Dict[str, Any]:
     tree = get_tree_by_name(str(name)) if name else None
     if tree:
         return tree
-    # Fallback for unknown species (matches "Other"-like defaults)
-    return {
-        "id": "other",
-        "name": str(name or "Other"),
-        "scientificName": "Unknown species",
-        "carbonSequestration": 18.0,
-        "biodiversityValue": 3.0,
-        "resilienceScore": 3.0,
-    }
+    return _unknown_tree(str(name or "Other"))
+
+
+def _species_key(tree: Dict[str, Any]):
+    return tree.get("id") or tree.get("name") or id(tree)
+
+
+def _unique_species(trees: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    unique: List[Dict[str, Any]] = []
+    seen = set()
+    for tree in trees:
+        key = _species_key(tree)
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(tree)
+    return unique
 
 
 class ForestImpactSimulator:
@@ -48,17 +134,22 @@ class ForestImpactSimulator:
         trees: Sequence[TreeSpec],
         percentages: Optional[Dict[str, float]] = None,
     ) -> Dict[str, float]:
-        resolved = [_resolve_tree(t) for t in trees]
+        resolved = _unique_species([_resolve_tree(t) for t in trees])
         if not resolved:
             return {"carbon": 0.0, "biodiversity": 0.0, "resilience": 0.0}
 
         if percentages:
-            total_pct = sum(percentages.get(t["id"], percentages.get(t["name"], 0)) for t in resolved)
-            if abs(total_pct - 100) < 0.5:
+            def _percentage(tree: Dict[str, Any]) -> float:
+                value = percentages.get(tree["id"], percentages.get(tree["name"], 0))
+                if value is None or value == "":
+                    return 0.0
+                return float(value)
+
+            total_pct = sum(_percentage(t) for t in resolved)
+            if abs(total_pct - 100) < 0.01:
                 carbon = biodiversity = resilience = 0.0
                 for t in resolved:
-                    pct = percentages.get(t["id"], percentages.get(t["name"], 0))
-                    w = pct / 100.0
+                    w = _percentage(t) / 100.0
                     carbon += t["carbonSequestration"] * w
                     biodiversity += t["biodiversityValue"] * w
                     resilience += t["resilienceScore"] * w
@@ -234,9 +325,36 @@ class ForestImpactSimulator:
         average_tree_age: int = 20,
         calculation_mode: str = "perArea",
     ) -> Dict[str, Any]:
+        mode = _normalize_mode(mode)
+        calculation_mode = _normalize_calculation_mode(calculation_mode)
+        years = _require_whole_number("years", years, minimum=1)
+        total_trees = _require_number("total_trees", total_trees, minimum=0)
+        area_hectares = _require_number("area_hectares", area_hectares, minimum=0)
+        average_tree_age = _require_whole_number("average_tree_age", average_tree_age, minimum=0)
+        if latitude is not None:
+            latitude = _require_number("latitude", latitude)
+            if not -90 <= latitude <= 90:
+                raise ValueError("latitude must be between -90 and 90")
+        if longitude is not None:
+            longitude = _require_number("longitude", longitude)
+            if not -180 <= longitude <= 180:
+                raise ValueError("longitude must be between -180 and 180")
+        if spacing_meters is not None:
+            spacing_meters = _require_number("spacing_meters", spacing_meters)
+            if spacing_meters <= 0:
+                raise ValueError("spacing_meters must be positive")
+        if soil_carbon is not None:
+            soil_carbon = _require_number("soil_carbon", soil_carbon)
+        if soil_ph is not None:
+            soil_ph = _require_number("soil_ph", soil_ph)
+        if temperature is not None:
+            temperature = _require_number("temperature", temperature)
+        if precipitation is not None:
+            precipitation = _require_number("precipitation", precipitation)
+
         lat = latitude if latitude is not None else 0.0
-        lon = longitude if longitude is not None else 0.0
         resolved = [_resolve_tree(t) for t in trees]
+        species = _unique_species(resolved)
         density = (total_trees / area_hectares) if area_hectares > 0 else 0.0
         spacing = spacing_meters if spacing_meters is not None else (
             math.sqrt(10_000 / density) if density > 0 else 0.0
@@ -263,33 +381,35 @@ class ForestImpactSimulator:
             # Period-average annual (web UI): total / years
             annual_displayed = average_annual_from_cumulative(total_carbon, years)
         else:
-            per_tree_rate = mature_annual / total_trees if total_trees else mature_annual
+            # perArea mature rate is already stand-wide; divide back to a per-tree rate
+            # before the clear-cut curve, then scale the result. perTree is already per tree.
+            if calculation_mode == "perArea" and total_trees:
+                per_tree_rate = mature_annual / total_trees
+                scale = total_trees
+            else:
+                per_tree_rate = mature_annual
+                scale = 1
             clear_cut = calculate_clear_cutting_carbon(per_tree_rate, average_tree_age, years)
-            # Scale by stand size in perArea mode
-            scale = total_trees if calculation_mode == "perArea" else 1
             clear_cut = {k: v * scale for k, v in clear_cut.items()}
             total_carbon = clear_cut["total"]
             annual_displayed = average_annual_from_cumulative(total_carbon, years)
 
         timeline = calculate_planting_timeline(total_trees)
         social = self.calculate_social_impact(
-            mode=mode, years=years, area_hectares=area_hectares, num_species=len(resolved)
+            mode=mode, years=years, area_hectares=area_hectares, num_species=len(species)
         )
         land_use = self.calculate_land_use_impact(mode=mode, years=years, area_hectares=area_hectares)
         comparisons = self.real_world_comparisons(total_carbon)
 
-        if region is None and latitude is not None and longitude is not None:
-            # Approximate region box when only a point is known
-            region = {
-                "north": lat + 0.01,
-                "south": lat - 0.01,
-                "east": lon + 0.01,
-                "west": lon - 0.01,
-            }
-
-        tree_percentages = percentages or {
-            t["id"]: 100.0 / len(resolved) for t in resolved
-        } if resolved else {}
+        if not species:
+            tree_percentages: Dict[str, float] = {}
+        elif percentages:
+            tree_percentages = {}
+            for key, value in percentages.items():
+                tree_percentages[str(key)] = float(_require_number("percentage", value))
+        else:
+            share = 100.0 / len(species)
+            tree_percentages = {t["id"]: share for t in species}
 
         return {
             "metadata": {
@@ -303,7 +423,7 @@ class ForestImpactSimulator:
                 "simulation": {
                     "mode": mode,
                     "years": years,
-                    "selectedTrees": resolved,
+                    "selectedTrees": species,
                     "treePercentages": tree_percentages,
                     "averageTreeAge": average_tree_age if mode == "clear-cutting" else None,
                 },
@@ -326,8 +446,8 @@ class ForestImpactSimulator:
                 "waterRetention": impact["water_retention_percent"],
                 "airQualityImprovement": impact["air_quality_improvement_percent"],
                 "totalCarbon": total_carbon,
-                "averageBiodiversity": impact["biodiversity_impact"],
-                "averageResilience": impact["forest_resilience"],
+                "averageBiodiversity": calculate_period_average_impact(impact["biodiversity_impact"], years),
+                "averageResilience": calculate_period_average_impact(impact["forest_resilience"], years),
                 "matureAnnualCarbon": mature_annual,
                 "clearCuttingBreakdown": clear_cut,
             },
@@ -364,35 +484,49 @@ class ForestImpactSimulator:
         if not plots:
             raise ValueError("No plots provided")
 
-        total_area = sum(float(p.get("area") or p.get("area_hectares") or 0) for p in plots)
+        total_area = 0.0
         total_trees = 0
-        tree_names: List[str] = []
+        counts_by_name: Dict[str, int] = {}
+        unique_trees: List[str] = []
         for p in plots:
-            name = str(p.get("tree_type") or p.get("tree_names") or "Oak")
-            tree_names.append(name)
-            count = int(p.get("tree_count") or p.get("total_trees") or 0)
-            density = float(p.get("tree_density") or p.get("density_trees_hectare") or 0)
-            area = float(p.get("area") or p.get("area_hectares") or 0)
+            name = str(p.get("tree_type") or p.get("tree_names") or "Oak").strip() or "Oak"
+            area = _parse_optional_number(p.get("area", p.get("area_hectares"))) or 0.0
+            if area < 0:
+                raise ValueError("plot area must be >= 0")
+            count_value = _parse_optional_number(p.get("tree_count", p.get("total_trees")))
+            density_value = _parse_optional_number(p.get("tree_density", p.get("density_trees_hectare")))
+            if count_value is not None and count_value < 0:
+                raise ValueError("tree_count must be >= 0")
+            if density_value is not None and density_value < 0:
+                raise ValueError("tree_density must be >= 0")
+            count = int(math.floor(count_value)) if count_value and count_value > 0 else 0
+            density = density_value if density_value and density_value > 0 else 0.0
             if count <= 0 and density > 0 and area > 0:
-                count = int(area * density)
+                count = int(math.floor(area * density))
             if count <= 0 and area > 0:
                 tree = get_tree_by_name(name)
-                # Default to wide spacing density (625) used for oak-like species
-                count = int(area * 625)
+                spacing_name = tree["name"] if tree else name
+                spacing_key = get_recommended_spacing(spacing_name)
+                count = int(math.floor(area * TREE_SPACING_CONFIGS[spacing_key]["density"]))
+            total_area += area
             total_trees += count
-
-        # Unique species order preserved
-        unique_trees: List[str] = []
-        for n in tree_names:
-            if n not in unique_trees:
-                unique_trees.append(n)
+            if name not in counts_by_name:
+                unique_trees.append(name)
+                counts_by_name[name] = 0
+            counts_by_name[name] += count
 
         lat = next((p.get("latitude") for p in plots if p.get("latitude") not in (None, "")), None)
         lon = next((p.get("longitude") for p in plots if p.get("longitude") not in (None, "")), None)
-        if lat is not None:
-            lat = float(lat)
-        if lon is not None:
-            lon = float(lon)
+        lat = _parse_optional_number(lat)
+        lon = _parse_optional_number(lon)
+
+        percentages = None
+        if total_trees > 0 and unique_trees:
+            percentages = {}
+            for name in unique_trees:
+                tree = get_tree_by_name(name)
+                key = tree["id"] if tree else _unknown_tree(name)["id"]
+                percentages[key] = percentages.get(key, 0.0) + (100.0 * counts_by_name[name] / total_trees)
 
         return self.simulate(
             trees=unique_trees,
@@ -405,5 +539,6 @@ class ForestImpactSimulator:
             soil_carbon=soil_carbon,
             temperature=temperature,
             precipitation=precipitation,
+            percentages=percentages,
             average_tree_age=average_tree_age,
         )

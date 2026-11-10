@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+import re
 from typing import Dict, List, Optional, TypedDict
 
 
@@ -45,8 +46,16 @@ def format_area(area_hectares: float) -> str:
     return f"{area_hectares:.0f} hectares ({area_km2:.1f} km²)"
 
 
+def _matches_spacing_term(tree_type: str, term: str) -> bool:
+    """True when term is a whole word or phrase in the species name."""
+    normalized = " ".join(tree_type.lower().replace("-", " ").replace("_", " ").split())
+    needle = " ".join(term.lower().replace("-", " ").replace("_", " ").split())
+    if not needle:
+        return False
+    return re.search(rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z0-9])", normalized) is not None
+
+
 def get_recommended_spacing(tree_type: str) -> str:
-    name = tree_type.lower()
     dense = (
         "eucalyptus", "willow", "poplar", "birch", "bamboo", "papaya",
         "banana", "tulip_poplar", "sycamore", "juniper", "rowan", "olive",
@@ -60,11 +69,11 @@ def get_recommended_spacing(tree_type: str) -> str:
         "oak", "maple", "pine", "spruce", "fir", "mahogany", "teak", "beech",
         "ash", "hickory", "black walnut", "white oak", "sugar maple", "linden",
     )
-    if any(k in name for k in dense):
+    if any(_matches_spacing_term(tree_type, k) for k in dense):
         return "dense"
-    if any(k in name for k in very_wide):
+    if any(_matches_spacing_term(tree_type, k) for k in very_wide):
         return "veryWide"
-    if any(k in name for k in wide):
+    if any(_matches_spacing_term(tree_type, k) for k in wide):
         return "wide"
     return "standard"
 
@@ -75,7 +84,9 @@ def calculate_tree_planting(
     custom_spacing: Optional[float] = None,
 ) -> Dict[str, float]:
     area = calculate_region_area(bounds)
-    if custom_spacing:
+    if custom_spacing is not None:
+        if custom_spacing <= 0:
+            raise ValueError("custom_spacing must be positive")
         spacing = custom_spacing
         density = 10_000 / (spacing * spacing)
     else:
@@ -93,6 +104,8 @@ def calculate_tree_planting(
 
 
 def calculate_planting_timeline(total_trees: int) -> Dict[str, object]:
+    if total_trees < 0:
+        raise ValueError("total_trees must be >= 0")
     if total_trees < 1000:
         project_scale = "Small-scale (Community/Backyard)"
         trees_per_person_per_day, planting_days, people = 50, 30, 2
