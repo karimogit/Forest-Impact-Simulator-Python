@@ -25,6 +25,17 @@ TREE_AGE_GROWTH_FACTORS = {
     "AGE_50_PLUS": 0.85,
 }
 
+# Biodiversity and resilience period-average curve (same factors for both)
+BIODIVERSITY_GROWTH_FACTORS = {
+    "YEAR_1": 0.10,
+    "YEAR_2": 0.25,
+    "YEAR_3": 0.45,
+    "YEAR_4": 0.65,
+    "YEAR_5": 0.80,
+    "YEAR_6": 0.90,
+    "YEAR_7_PLUS": 0.95,
+}
+
 CARBON_CONVERSION = {
     "CARBON_TO_CO2": 3.67,
     "SOIL_CARBON_MODIFIER": 0.1,  # kg CO2/year per g/kg of soil carbon
@@ -96,4 +107,4 @@ COMPARISON_FACTORS = {
     "HOUSEHOLD_ELECTRICITY_PER_YEAR": 7500,
 }
 
-SIMULATOR_VERSION = "1.1.0"
+SIMULATOR_VERSION = "1.1.1"

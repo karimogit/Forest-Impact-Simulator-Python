@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import io
 import json
+import math
 from typing import Any, Dict, List, Optional
 
 
@@ -19,6 +20,23 @@ CSV_HEADERS = [
     "years_to_complete", "trees_per_season",
     "tree_names", "tree_scientific_names", "tree_carbon_rates_kg_co2_year", "tree_percentages",
 ]
+
+
+def _sanitize(value: Any) -> Any:
+    """Replace non-finite floats so exports stay valid JSON."""
+    if isinstance(value, dict):
+        return {str(key): _sanitize(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_sanitize(item) for item in value]
+    if isinstance(value, bool) or value is None or isinstance(value, (str, int)):
+        return value
+    if isinstance(value, float):
+        return value if math.isfinite(value) else None
+    return value
+
+
+def _finite_number(value: Any) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(float(value))
 
 
 def _fmt(value: Any, decimals: Optional[int] = None) -> str:
@@ -86,17 +104,20 @@ def generate_csv(data: Dict[str, Any]) -> str:
 
 
 def generate_json(data: Dict[str, Any]) -> str:
-    return json.dumps(data, indent=2, default=str)
+    return json.dumps(_sanitize(data), indent=2, allow_nan=False, default=str)
 
 
 def generate_geojson(data: Dict[str, Any]) -> str:
     features: List[Dict[str, Any]] = []
-    loc = data["metadata"]["location"]
+    loc = data["metadata"].get("location") or {}
     impact = data["impactResults"]
     planting = data.get("plantingData") or {}
 
+    env = data.get("environmentalData") or {}
+    soil = env.get("soil") or {}
+    climate = env.get("climate") or {}
     lat, lon = loc.get("latitude"), loc.get("longitude")
-    if lat is not None and lon is not None:
+    if _finite_number(lat) and _finite_number(lon):
         features.append({
             "type": "Feature",
             "geometry": {"type": "Point", "coordinates": [lon, lat]},
@@ -111,11 +132,14 @@ def generate_geojson(data: Dict[str, Any]) -> str:
                 "simulationYears": data["metadata"]["simulation"]["years"],
                 "selectedTreeCount": len(data["metadata"]["simulation"]["selectedTrees"]),
                 "treeSpecies": ", ".join(t["name"] for t in data["metadata"]["simulation"]["selectedTrees"]),
+                "soilCarbon": soil.get("carbon"),
+                "temperature": climate.get("temperature"),
+                "precipitation": climate.get("precipitation"),
             },
         })
 
-    region = loc.get("region")
-    if region:
+    region = loc.get("region") or {}
+    if all(_finite_number(region.get(key)) for key in ("north", "south", "east", "west")):
         n, s, e, w = region["north"], region["south"], region["east"], region["west"]
         features.append({
             "type": "Feature",
@@ -134,7 +158,7 @@ def generate_geojson(data: Dict[str, Any]) -> str:
             },
         })
 
-    return json.dumps({
+    return json.dumps(_sanitize({
         "type": "FeatureCollection",
         "features": features,
         "properties": {
@@ -143,7 +167,7 @@ def generate_geojson(data: Dict[str, Any]) -> str:
             "timestamp": data["metadata"]["timestamp"],
             "simulatorVersion": data["metadata"]["simulatorVersion"],
         },
-    }, indent=2)
+    }), indent=2, allow_nan=False)
 
 
 def write_exports(data: Dict[str, Any], prefix: str) -> Dict[str, str]:

@@ -64,7 +64,7 @@ write_exports(results, "my_results")
 | tree_density | Trees per hectare | No* |
 | latitude / longitude | Location | No |
 
-\* If both are missing, density defaults to 625 trees/ha (wide spacing).
+\* If both are missing, density defaults to that species' recommended spacing (625 trees/ha for oaks and other wide-spaced species, 1,600 for dense species such as eucalyptus, 1,111 for unknown species).
 
 ### Output (comprehensive single-row)
 
@@ -78,7 +78,8 @@ Aligned with the original README methodology:
 
 - **Planting carbon**: `Σ(mature_rate × growth_factor(year))` for each year
 - **Clear-cutting carbon**: lifetime stored carbon (by tree age) + lost future sequestration
-- **Biodiversity / resilience**: 1–5 scale with time and stand-size bonuses
+- **Biodiversity / resilience**: endpoint score on a 1–5 scale with time and stand-size bonuses. `average_biodiversity` and `average_resilience` apply the original growth curve and report the period average of that score
+- **Mixed plots**: species are weighted by tree count, not split equally by species name
 - **Water / air**: percentage metrics with progressive improvement or clear-cut degradation
 - **Soil modifier**: `soil_carbon_g_kg × 0.1` kg CO₂/year added to the per-tree base before scaling
 

@@ -1,5 +1,6 @@
 """Parity checks against the original Forest Impact Simulator formulas."""
 
+import json
 import math
 import sys
 from pathlib import Path
@@ -7,12 +8,14 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from forest_impact import ForestImpactSimulator, format_area
+from forest_impact.export import generate_geojson, generate_json
 from forest_impact.growth import (
     calculate_clear_cutting_carbon,
     calculate_cumulative_planting_carbon,
+    calculate_period_average_impact,
     get_planting_growth_factor,
 )
-from forest_impact.planting import calculate_region_area, calculate_planting_timeline
+from forest_impact.planting import calculate_region_area, calculate_planting_timeline, calculate_tree_planting, get_recommended_spacing
 from forest_impact.tree_types import get_tree_by_name
 
 
@@ -105,6 +108,160 @@ def test_maple_alias():
     maple = get_tree_by_name("Maple")
     assert maple is not None
     assert maple["id"] == "sugar_maple"
+
+
+def test_species_lookup_uses_whole_words_and_scientific_names():
+    assert get_tree_by_name("a") is None
+    assert get_tree_by_name("Ash")["id"] == "ash"
+    assert get_tree_by_name("Cashew")["id"] == "cashew"
+    assert get_tree_by_name("Quercus robur")["id"] == "oak"
+    assert get_tree_by_name("tulip tree")["id"] == "tulip_poplar"
+    assert get_tree_by_name("unslash") is None
+
+
+def test_spacing_terms_do_not_match_inside_other_words():
+    assert get_recommended_spacing("unslash") == "standard"
+    assert get_recommended_spacing("Cashew") == "dense"
+    assert get_recommended_spacing("Douglas Fir") == "veryWide"
+    assert get_recommended_spacing("Oak") == "wide"
+    assert get_recommended_spacing("Slash Pine") == "wide"
+
+
+def test_period_average_biodiversity_uses_growth_curve():
+    sim = ForestImpactSimulator()
+    result = sim.simulate(
+        trees=["Oak"],
+        total_trees=1,
+        area_hectares=1,
+        years=1,
+        mode="planting",
+        calculation_mode="perTree",
+    )
+    impact = result["impactResults"]
+    assert impact["biodiversityImpact"] == 5
+    assert abs(impact["averageBiodiversity"] - calculate_period_average_impact(5, 1)) < 1e-9
+    assert abs(impact["averageBiodiversity"] - 0.5) < 1e-9
+    assert abs(impact["averageResilience"] - impact["forestResilience"] * 0.10) < 1e-9
+
+
+def test_clear_cutting_per_tree_is_not_divided_by_stand_size():
+    sim = ForestImpactSimulator()
+    result = sim.simulate(
+        trees=["Oak"],
+        total_trees=100,
+        area_hectares=1,
+        years=10,
+        mode="clear-cutting",
+        calculation_mode="perTree",
+        average_tree_age=20,
+    )
+    expected = calculate_clear_cutting_carbon(22.0, 20, 10)
+    breakdown = result["impactResults"]["clearCuttingBreakdown"]
+    assert abs(breakdown["total"] - expected["total"]) < 1e-6
+    assert abs(breakdown["immediate"] - expected["immediate"]) < 1e-6
+
+    stand = sim.simulate(
+        trees=["Oak"],
+        total_trees=100,
+        area_hectares=1,
+        years=10,
+        mode="clear-cutting",
+        calculation_mode="perArea",
+        average_tree_age=20,
+    )
+    assert abs(stand["impactResults"]["totalCarbon"] - expected["total"] * 100) < 1e-4
+
+
+def test_mixed_plots_are_weighted_by_tree_count():
+    sim = ForestImpactSimulator()
+    result = sim.simulate_from_plots([
+        {"area": 1, "tree_type": "Oak", "tree_count": 100},
+        {"area": 1, "tree_type": "Eucalyptus", "tree_count": 300},
+    ], years=1)
+    expected = (100 * 22 + 300 * 35) / 400
+    assert abs(result["impactResults"]["matureAnnualCarbon"] - expected * 400) < 1e-6
+    percentages = result["metadata"]["simulation"]["treePercentages"]
+    assert abs(percentages["oak"] - 25) < 1e-9
+    assert abs(percentages["eucalyptus"] - 75) < 1e-9
+
+
+def test_duplicate_species_do_not_inflate_social_score():
+    sim = ForestImpactSimulator()
+    single = sim.simulate(trees=["Oak"], total_trees=10, area_hectares=1, years=1)
+    duplicated = sim.simulate(trees=["Oak", "Oak"], total_trees=10, area_hectares=1, years=1)
+    mixed = sim.simulate(trees=["Oak", "Pine"], total_trees=10, area_hectares=1, years=1)
+    assert duplicated["socialImpact"] == single["socialImpact"]
+    assert mixed["socialImpact"] > single["socialImpact"]
+
+
+def test_missing_counts_use_species_spacing():
+    sim = ForestImpactSimulator()
+    oaks = sim.simulate_from_plots([{"area": 2, "tree_type": "Oak"}])
+    gums = sim.simulate_from_plots([{"area": 2, "tree_type": "Eucalyptus"}])
+    assert oaks["plantingData"]["totalTrees"] == 2 * 625
+    assert gums["plantingData"]["totalTrees"] == 2 * 1600
+
+
+def test_invalid_mode_and_coordinates_raise():
+    sim = ForestImpactSimulator()
+    try:
+        sim.simulate(trees=["Oak"], total_trees=1, area_hectares=1, mode="logging")
+        raise AssertionError("expected ValueError")
+    except ValueError:
+        pass
+    try:
+        sim.simulate(trees=["Oak"], total_trees=1, area_hectares=1, latitude=120)
+        raise AssertionError("expected ValueError")
+    except ValueError:
+        pass
+
+
+def test_negative_plot_count_raises():
+    sim = ForestImpactSimulator()
+    try:
+        sim.simulate_from_plots([{"area": 1, "tree_type": "Oak", "tree_count": -5}])
+        raise AssertionError("expected ValueError")
+    except ValueError:
+        pass
+
+
+def test_plot_count_accepts_decimal_strings():
+    sim = ForestImpactSimulator()
+    result = sim.simulate_from_plots([
+        {"area": "1.5", "tree_type": "Oak", "tree_count": "10.0"},
+    ])
+    assert result["plantingData"]["totalTrees"] == 10
+
+
+def test_point_export_has_no_invented_region_and_stays_valid_json():
+    sim = ForestImpactSimulator()
+    result = sim.simulate(
+        trees=["Oak"],
+        total_trees=10,
+        area_hectares=1,
+        latitude=0,
+        longitude=0,
+        temperature=21,
+    )
+    assert result["metadata"]["location"]["region"] is None
+    payload = json.loads(generate_json(result))
+    geo = json.loads(generate_geojson(result))
+    assert payload["metadata"]["location"]["latitude"] == 0
+    assert geo["features"][0]["geometry"]["coordinates"] == [0, 0]
+    assert geo["features"][0]["properties"]["temperature"] == 21
+    assert len(geo["features"]) == 1
+
+
+def test_custom_spacing_must_be_positive():
+    try:
+        calculate_tree_planting(
+            {"north": 1, "south": 0, "east": 1, "west": 0},
+            "Oak",
+            custom_spacing=0,
+        )
+        raise AssertionError("expected ValueError")
+    except ValueError:
+        pass
 
 
 if __name__ == "__main__":
